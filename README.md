@@ -1,5 +1,8 @@
 # swiza-interop
 
+[![Clojars Project](https://img.shields.io/clojars/v/net.b12n/swiza-interop.svg)](https://clojars.org/net.b12n/swiza-interop)
+[![Dependencies Status](https://jarkeeper.com/agilecreativity/swiza-interop/status.png)](https://jarkeeper.com/agilecreativity/swiza-interop)
+
 Clojure CLI library designed to make it easier to inspect Java methods from Clojure.
 
 ## Installation 
