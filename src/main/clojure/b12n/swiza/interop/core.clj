@@ -52,11 +52,64 @@
   "Print the method of a given Java class.
 
   Examples:
-  (show-methods java.util.UUID) ;; see your REPL
-  (show-methods java.lang.String)"
+  (print-methods java.util.UUID) ;; see your REPL
+  (print-methods java.lang.String)"
   [clazz]
   (let [declared-methods (seq (:declaredMethods (bean clazz)))
         methods (map #(.toString %) declared-methods)]
     (doseq [m methods]
       (println m))
     methods))
+
+(comment
+  (print-methods java.lang.String)
+  (def result (print-methods java.util.Arrays))
+  (first result)
+  )
+
+(defn declared-methods
+  "List out the declared methods of a given class
+
+  Examples:
+  (declared-methods java.util.UUID)
+  (declared-methods java.lang.String)"
+  [clazz]
+  (-> clazz
+      bean
+      :declaredMethods
+      seq))
+
+(defn declared-names
+  "Extract the unique function names from a given class.
+
+  Example:
+  (declared-names java.util.UUID)"
+  [clazz]
+  (if-let [methods (declared-methods clazz)]
+    (->> methods
+         (map (fn [m] (.getName m)))
+         distinct)))
+
+(comment
+  (declared-names java.util.UUID)
+
+  (declared-names java.util.List)
+  )
+
+(comment
+  ;; from: borkdude/babashka
+  (defn public-declared-method? [c m]
+    (and (= c (.getDeclaringClass m))
+         (not (.getAnnotation m Deprecated))))
+
+  (defn public-declared-method-names [c]
+    (->> (.getMethods c)
+         (keep (fn [m]
+                 (when (public-declared-method? c m)
+                   {:name (.getName m)})) )
+         (distinct)
+         (sort-by :name)
+         (vec)))
+
+  (public-declared-method-names java.lang.UNIXProcess)
+  )

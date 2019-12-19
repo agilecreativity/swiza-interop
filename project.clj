@@ -1,4 +1,4 @@
-(defproject net.b12n/swiza-interop "0.1.0"
+(defproject net.b12n/swiza-interop "0.1.1"
   :description "swiza-interop utility library"
   :url "http://github.com/agilecreativity/swiza-interop"
   :license {:name "Eclipse Public License"
